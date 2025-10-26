@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text file by url</title>
+  </head>
+  <body>
+    <input style="margin-top: 4rem" type="url" id="urlInput" />
+    <center>
+      <h1>Prize Bond By National Savings Url</h1>
+      <br />
+      <br />
+      <label for="">Enter Number:</label>
+      <input type="text" id="prizeNumber" />
+      <button id="btn">Find out</button>
+      <p id="output">Output Result</p>
+    </center>
+    <script>
+      const urlInput = document.getElementById("urlInput");
+      const output = document.getElementById("output");
+      const prizeNumber = document.getElementById("prizeNumber");
+      const btn = document.getElementById("btn");
+
+      //   try {
+      //     fetch(
+      //       "https://savings.gov.pk/wp-content/uploads/2025/02/Rs.100-49th-Draw-RWP-Final.txt"
+      //     )
+      //       .then((x) => x.text())
+      //       .then((y) => (output.textContent = y));
+      //   } catch (error) {
+      //     console.log("error", error);
+      //     output.textContent = "URL not found";
+      //   }
+      //   try {
+      //     fetch(url)
+      //       .then((x) => x.text())
+      //       .then(y =>{
+      //         const z=JSON.stringify(y)
+      //       console.log(z)})
+
+      //    .catch (error => console.log(error));
+      //   }
+
+      btn.addEventListener("click", () => {
+        const url =
+          "https://api.allorigins.win/raw?url=" +
+          encodeURIComponent(urlInput.value.trim());
+
+        fetch(url)
+          .then((x) => x.text())
+          .then((y) => {
+            // const z=JSON.stringify(y)
+            const prize = prizeNumber.value.trim();
+            const d = y.includes(prize);
+            console.log(prize);
+            console.log(y);
+            if (d) {
+              output.textContent = "you won the prize";
+            } else {
+              output.textContent = "Better luck for next time";
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            output.textContent = "URL not found";
+          });
+      });
+    </script>
+  </body>
+</html>
