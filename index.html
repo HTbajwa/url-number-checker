@@ -14,7 +14,7 @@
       <label for="">Enter Number:</label>
       <input type="text" id="prizeNumber" />
       <button id="btn">Find out</button>
-      <p id="output">Output Result</p>
+      <p id="output" style="font-size: 48px;">Output Result</p>
     </center>
     <script>
       const urlInput = document.getElementById("urlInput");
@@ -50,15 +50,17 @@
         fetch(url)
           .then((x) => x.text())
           .then((y) => {
-            // const z=JSON.stringify(y)
             const prize = prizeNumber.value.trim();
-            const d = y.includes(prize);
+            const isSixDigits = /^\d{6}$/.test(prize);
+            const d = y.includes(prize) && isSixDigits;
             console.log(prize);
             console.log(y);
             if (d) {
               output.textContent = "you won the prize";
+              console.log(output)
             } else {
-              output.textContent = "Better luck for next time";
+              output.textContent = "Better luck for next time or Use the correct formatte";
+              console.log(output)
             }
           })
           .catch((error) => {
